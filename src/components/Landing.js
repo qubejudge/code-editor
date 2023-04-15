@@ -4,7 +4,7 @@ import CodeEditorWindow from "./CodeEditorWindow";
 import axios from "axios";
 import { classnames } from "../utils/general";
 import { languageOptions } from "../constants/languageOptions";
-
+//import dotenv from  'dotenv';
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -73,7 +73,8 @@ const Landing = () => {
     reader.onload = async (e) => { 
       const text = (e.target.result)
       onChange("code", text);
-      console.log(code);
+      console.log(text);
+      //console.log()
     };
     reader.readAsText(e.target.files[0])
   }
@@ -104,18 +105,21 @@ const Landing = () => {
   };
   const handleCompile = () => {
     setProcessing(true);
+    // const formData = {
+    //   language_id: language.id,
+    //   // encode source code in base64
+    //   source_code: btoa(code),
+    //   stdin: btoa(customInput),
+    // };
     const formData = {
-      language_id: language.id,
-      // encode source code in base64
-      source_code: btoa(code),
-      stdin: btoa(customInput),
+      file: selectedFile
     };
     const options = {
       method: "POST",
-      url: process.env.REACT_APP_RAPID_API_URL,
-      params: { base64_encoded: "true", fields: "*" },
+      url: process.env.REACT_APP_SUBMISSION_ENDPOINT,
+      //params: { base64_encoded: "true", fields: "*" },
       headers: {
-        "content-type": "application/json",
+        "content-type": "multipart/form-data",
       },
       data: formData,
     };
@@ -125,7 +129,7 @@ const Landing = () => {
       .then(function (response) {
         console.log("res.data", response.data);
         const token = response.data.token;
-        checkStatus(token);
+        //checkStatus(token);
       })
       .catch((err) => {
         let error = err.response ? err.response.data : err;
