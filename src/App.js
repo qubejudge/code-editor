@@ -2,7 +2,8 @@ import "./App.css";
 import Landing from "./components/Landing";
 import Navbar from './components/Navbar'
 
-function App() {
+const App = () => {
+  
   return (
   <Landing />
   

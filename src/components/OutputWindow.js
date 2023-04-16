@@ -1,6 +1,6 @@
 import React from "react";
 
-const OutputWindow = ({ outputDetails }) => {
+const OutputWindow = ({ outputDetails, processing }) => {
   const getOutput = () => {
     let statusId = outputDetails?.status?.id;
 
@@ -39,7 +39,7 @@ const OutputWindow = ({ outputDetails }) => {
         Output
       </h1>
       <div className="w-full h-56 bg-[#1e293b] rounded-md text-white font-normal text-sm overflow-y-auto">
-        {outputDetails ? <>{getOutput()}</> : null}
+        {outputDetails ? <>{getOutput()}</> : "Processing"}
       </div>
     </>
   );
