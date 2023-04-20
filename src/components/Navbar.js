@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {TbBrandCodesandbox} from 'react-icons/tb'
 import { getRandomOptions } from "../utils/RandomAvatar";
 
@@ -15,6 +15,12 @@ const shortName = uniqueNamesGenerator({
 
 
 const Navbar = () => {
+  const [randomOptions, setRandomOptions] = useState(null)
+  
+  useEffect(() => {
+    setRandomOptions(getRandomOptions())
+  }, [])
+
   return(
 <nav class="flex items-center justify-between flex-wrap bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-6">
   <div class="flex items-center flex-shrink-0 text-white mr-6">
@@ -34,7 +40,7 @@ const Navbar = () => {
   <div class = "flex items-center justify-between ">
       <text class = "block mt-4 lg:inline-block lg:mt-0 text-white mu-4 active text-md">{shortName}</text>
       <svg class="w-20 h-10">
-        <BigHead {...getRandomOptions()}/>
+        <BigHead {...randomOptions}/>
       </svg>
     </div>
 </nav>

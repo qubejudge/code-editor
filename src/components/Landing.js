@@ -34,7 +34,6 @@ const Landing = () => {
   const ctrlPress = useKeyPress("Control");
   const [submissionId, setSubmissionId] = useState("")
   const [socketTopic, setSocketTopic] = useState("/topic/message")
-
   const [message, setMessage] = useState('You server message here.');
 
 
@@ -126,13 +125,10 @@ const Landing = () => {
           }
         }
         );
-      // console.log(res.data.id)
       setProcessing(true)
       setSubmissionId(res.data.id)
-      // console.log(processing)
-      // console.log(submissionId)
     } catch (error) {
-      // console.log(error)
+      console.log(error)
     }
   };
 
@@ -144,7 +140,6 @@ const Landing = () => {
     console.log(submissionId)
     console.log(processing)
     setSocketTopic("/topic/message/" + submissionId)
-    // console.log(socketTopic)
   }, [submissionId, processing])
 
   useEffect(() => {
