@@ -35,16 +35,20 @@ const Landing = () => {
   const [submissionId, setSubmissionId] = useState("")
   const [socketTopic, setSocketTopic] = useState("/topic/message")
   const [message, setMessage] = useState('You server message here.');
-
+  const [response, setResponse] = useState(null);
 
 //Socket Functions
   let onConnected = () => {
     console.log("Connected!!")
   }
 
-  let onMessageReceived = (msg) => {
-    setMessage(msg);
-    console.log(msg)
+  let onMessageReceived = (response) => {
+    const obj = JSON.parse(JSON.stringify(response));
+    setResponse(obj);
+    setMessage(obj.out);
+    //setOutputDetails(obj)
+    // console.log(typeof response);
+    //console.log(obj)
     setProcessing(false)
   }
 
@@ -228,7 +232,7 @@ const Landing = () => {
         topics={[socketTopic]}
         onConnect={onConnected}
         onDisconnect={console.log("Disconnected!")}
-        onMessage={msg => onMessageReceived(msg)}
+        onMessage={response => onMessageReceived(response)}
         debug={false}
       />
       <div>{message}</div>
