@@ -34,6 +34,7 @@ const Landing = () => {
   const ctrlPress = useKeyPress("Control");
   const [submissionId, setSubmissionId] = useState("")
   const [socketTopic, setSocketTopic] = useState("/topic/message")
+
   const [message, setMessage] = useState('You server message here.');
   const [response, setResponse] = useState(null);
 
@@ -43,12 +44,12 @@ const Landing = () => {
   }
 
   let onMessageReceived = (response) => {
-    const obj = JSON.parse(JSON.stringify(response));
-    setResponse(obj);
-    setMessage(obj.out);
-    //setOutputDetails(obj)
+    //const obj = JSON.parse(JSON.stringify(response));
+    setResponse(response);
+    setMessage(response.out);
+    setOutputDetails(response)
     // console.log(typeof response);
-    //console.log(obj)
+    console.log(response)
     setProcessing(false)
   }
 
@@ -117,7 +118,9 @@ const Landing = () => {
   const  handleCompile = async () => {
     setProcessing(true);
     const formData = {
-      file: selectedFile
+      file: selectedFile,
+      input: customInput,
+      lang: "cpp"
     };
 
     try {
@@ -129,10 +132,13 @@ const Landing = () => {
           }
         }
         );
+      // console.log(res.data.id)
       setProcessing(true)
       setSubmissionId(res.data.id)
+      // console.log(processing)
+      // console.log(submissionId)
     } catch (error) {
-      console.log(error)
+      // console.log(error)
     }
   };
 
@@ -144,6 +150,7 @@ const Landing = () => {
     console.log(submissionId)
     console.log(processing)
     setSocketTopic("/topic/message/" + submissionId)
+    // console.log(socketTopic)
   }, [submissionId, processing])
 
   useEffect(() => {
@@ -235,9 +242,9 @@ const Landing = () => {
         onMessage={response => onMessageReceived(response)}
         debug={false}
       />
-      <div>{message}</div>
-    </div>
-          {/* {outputDetails && <OutputDetails outputDetails={outputDetails} />} */}
+      {/* <div>{message}</div> */}
+      </div>
+          {outputDetails && <OutputDetails outputDetails={outputDetails} />}
         </div>
       </div>
     </>

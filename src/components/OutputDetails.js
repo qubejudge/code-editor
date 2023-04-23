@@ -6,7 +6,9 @@ const OutputDetails = ({ outputDetails }) => {
       <p className="text-sm">
         Status:{" "}
         <span className="font-semibold px-2 py-1 rounded-md bg-gray-100">
-          {outputDetails?.status?.description}
+          {outputDetails.errorCode !== ""
+             ? `${(outputDetails.errorCode)}`
+             : "Accepted"}
         </span>
       </p>
       <p className="text-sm">
