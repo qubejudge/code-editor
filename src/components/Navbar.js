@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {TbBrandCodesandbox} from 'react-icons/tb'
 import { getRandomOptions } from "../utils/RandomAvatar";
 
@@ -15,12 +15,6 @@ const shortName = uniqueNamesGenerator({
 
 
 const Navbar = () => {
-  const [randomOptions, setRandomOptions] = useState(null)
-  
-  useEffect(() => {
-    setRandomOptions(getRandomOptions())
-  }, [])
-
   return(
 <nav class="flex items-center justify-between flex-wrap bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 p-6">
   <div class="flex items-center flex-shrink-0 text-white mr-6">
@@ -29,10 +23,10 @@ const Navbar = () => {
   </div>
   <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
     <div class="text-sm lg:flex-grow">
-      <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 active ">
+      <a href="/" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4 active ">
         Submit File
       </a>
-      <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+      <a href="/submissions" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
         Submissions
       </a>
     </div>
@@ -40,7 +34,7 @@ const Navbar = () => {
   <div class = "flex items-center justify-between ">
       <text class = "block mt-4 lg:inline-block lg:mt-0 text-white mu-4 active text-md">{shortName}</text>
       <svg class="w-20 h-10">
-        <BigHead {...randomOptions}/>
+        <BigHead {...getRandomOptions()}/>
       </svg>
     </div>
 </nav>
