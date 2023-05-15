@@ -47,18 +47,16 @@ const SubmissionsTable = () => {
 			});
 	}
 
-	useEffect(() => {
+	useEffect(async () => {
 		try {
-			axios
-				.get("http://localhost:8081/api/v1/submissions", {
-					headers: {
-						Authorization: "Bearer " + localStorage.getItem("token"),
-					},
-				})
-				.then((res) => {
-					setSubmissions(res.data.submissions);
-					console.log(submissions);
-				});
+			const res = await axios.get("http://localhost:8081/api/v1/submissions", {
+				headers: {
+					Authorization: "Bearer " + localStorage.getItem("token"),
+				},
+			});
+			console.log(res);
+			setSubmissions(res.data.submissions);
+			console.log(submissions);
 		} catch (error) {}
 	}, []);
 

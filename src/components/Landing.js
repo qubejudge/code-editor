@@ -132,7 +132,7 @@ const Landing = () => {
 				const res = await axios.post("http://localhost:8081/api/v1/submit-file", formData, {
 					headers: {
 						"Content-Type": "multipart/form-data",
-						// Authorization: "Bearer " + localStorage.getItem("token"),
+						Authorization: "Bearer " + localStorage.getItem("token"),
 					},
 				});
 				// console.log(res.data.id)
